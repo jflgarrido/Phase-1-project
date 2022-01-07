@@ -18,13 +18,15 @@ const homePageTemplate = () => {
 const planetsTemplate = () => {
     return `
     <div id='planetEntry'>
-    <h5 class="center-align">First 10 Planets</h1>
+    <h2>Planets</h2>
     </div>
     `
 }
 const peopleTemplate = () => {
     return `
-    <h1 class="center-align">People!</h1>
+    <div id='personEntry'>
+    <h2>People</h2>
+    </div>
     `
 }
 
@@ -33,13 +35,31 @@ const planetList = planets => {
     const planetDiv = document.getElementById('planetEntry');
     planets.forEach(planet => {
         const planetLi = document.createElement('li')
-        const planetElement = document.createElement('a');
-        const linkText = document.createTextNode(`${planet.name}`)
+        const planetElement = document.createElement('button');
+        planetElement.innerHTML = `${planet.name}`
+        planetElement.onclick = function() {
+            alert(`Name:${planet.name}
+                   Diameter:${planet.diameter} 
+                   Terrain:${planet.terrain}`)
+        }
+        planetDiv.appendChild(planetLi)
         planetLi.appendChild(planetElement)
-        planetElement.appendChild(linkText)
-        planetElement.title = `${planet.name}`
-        planetElement.href = `${planet.url}`
-        planetDiv.appendChild(planetLi);
+    })
+}
+
+const peopleList = people => {
+    const personDiv = document.getElementById('personEntry');
+    people.forEach(people => {
+        const personLi = document.createElement('li')
+        const personElement = document.createElement('button');
+        personElement.innerHTML = `${people.name}`
+        personElement.onclick = function() {
+            alert(`Name:${people.name}
+                   Height:${people.height} 
+                   Gender:${people.gender}`)
+        }
+        personDiv.appendChild(personLi)
+        personLi.appendChild(personElement)
     })
 }
 
@@ -54,6 +74,7 @@ const renderPlanetsPage = () => {
 }
 const renderPeoplePage = () => {
     mainDiv().innerHTML = peopleTemplate();
+    peopleList();
 }
 
 
@@ -74,6 +95,7 @@ const planetsLinkEvent = () => {
 const peopleLinkEvent = () => {
     peopleLink().addEventListener('click', (e) => {
         e.preventDefault();
+        getPeople();
         renderPeoplePage();
     })
 }
@@ -87,6 +109,12 @@ const getPlanets = () => {
         .then(planets => planetList(planets.results))
 }
 
+const getPeople = () => {
+    fetch(baseUrl + 'people')
+        .then(resp => resp.json())
+        .then(people => peopleList(people.results))
+}
+
 
 //When the DOM Loads
 
@@ -96,4 +124,5 @@ document.addEventListener('DOMContentLoaded', () => {
     planetsLinkEvent();
     peopleLinkEvent();
     getPlanets();
+    getPeople();
 })
