@@ -1,5 +1,6 @@
 //Global
-
+const baseUrl = "https://swapi.dev/api/"
+let planets = [];
 
 //Node Getters
 const mainDiv = () => document.getElementById('main');
@@ -16,7 +17,9 @@ const homePageTemplate = () => {
 }
 const planetsTemplate = () => {
     return `
-    <h1 class="center-align">Planets!</h1>
+    <div id='planetEntry'>
+    <h5 class="center-align">First 10 Planets</h1>
+    </div>
     `
 }
 const peopleTemplate = () => {
@@ -25,16 +28,34 @@ const peopleTemplate = () => {
     `
 }
 
+//Create Lists
+const planetList = planets => {
+    const planetDiv = document.getElementById('planetEntry');
+    planets.forEach(planet => {
+        const planetLi = document.createElement('li')
+        const planetElement = document.createElement('a');
+        const linkText = document.createTextNode(`${planet.name}`)
+        planetLi.appendChild(planetElement)
+        planetElement.appendChild(linkText)
+        planetElement.title = `${planet.name}`
+        planetElement.href = `${planet.url}`
+        planetDiv.appendChild(planetLi);
+    })
+}
+
+
 //Renderers
 const renderHomePage = () => {
     mainDiv().innerHTML = homePageTemplate();
 }
 const renderPlanetsPage = () => {
     mainDiv().innerHTML = planetsTemplate();
+    planetList();
 }
 const renderPeoplePage = () => {
     mainDiv().innerHTML = peopleTemplate();
 }
+
 
 //Events
 const homePageLinkEvent = () => {
@@ -46,6 +67,7 @@ const homePageLinkEvent = () => {
 const planetsLinkEvent = () => {
     planetsLink().addEventListener('click', (e) => {
         e.preventDefault();
+        getPlanets();
         renderPlanetsPage();
     })
 }
@@ -56,7 +78,14 @@ const peopleLinkEvent = () => {
     })
 }
 
-//*****
+
+
+//Fetch API Data
+const getPlanets = () => {
+    fetch(baseUrl + 'planets')
+        .then(resp => resp.json())
+        .then(planets => planetList(planets.results))
+}
 
 
 //When the DOM Loads
@@ -66,4 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
     homePageLinkEvent();
     planetsLinkEvent();
     peopleLinkEvent();
+    getPlanets();
 })
