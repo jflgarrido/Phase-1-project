@@ -1,6 +1,7 @@
 //Global
 const baseUrl = "https://swapi.dev/api/"
-let planets = [];
+const infoDiv = document.getElementById('info')
+infoDiv.className = 'information'
 
 //Node Getters
 const mainDiv = () => document.getElementById('main');
@@ -11,6 +12,7 @@ const peopleLink = () => document.getElementById('people-link')
 //Templates
 const homePageTemplate = () => {
     return `
+    <img src="https://cdn.pixabay.com/photo/2017/09/22/15/26/figures-2775971_1280.png" alt="star wars image">
     <h1 class="center-align">Welcome to Star Wars</h1>
     <h1 class="center-align">Planets and People!</h1>
     `
@@ -37,10 +39,23 @@ const planetList = planets => {
         const planetLi = document.createElement('li')
         const planetElement = document.createElement('button');
         planetElement.innerHTML = `${planet.name}`
-        planetElement.onclick = function() {
-            alert(`Name:${planet.name}
-                   Diameter:${planet.diameter} 
-                   Terrain:${planet.terrain}`)
+        planetElement.onclick = () => {
+            infoDiv.innerHTML = ''
+            const infoName = document.createElement('h3')
+            infoName.innerText = `Name: ${planet.name}`
+            infoDiv.appendChild(infoName)
+            const infoDiameter = document.createElement('h3')
+            infoDiameter.innerText = `Diameter: ${planet.diameter}`
+            infoDiv.appendChild(infoDiameter)
+            const infoTerrain = document.createElement('h3')
+            infoTerrain.innerText = `Terrain: ${planet.terrain}`
+            infoDiv.appendChild(infoTerrain)
+            const infoClimate = document.createElement('h3')
+            infoClimate.innerText = `Climate: ${planet.climate}`
+            infoDiv.appendChild(infoClimate)
+            const infoPopulation = document.createElement('h3')
+            infoPopulation.innerText = `Population: ${planet.population}`
+            infoDiv.appendChild(infoPopulation)
         }
         planetDiv.appendChild(planetLi)
         planetLi.appendChild(planetElement)
@@ -52,11 +67,24 @@ const peopleList = people => {
     people.forEach(people => {
         const personLi = document.createElement('li')
         const personElement = document.createElement('button');
-        personElement.innerHTML = `${people.name}`
-        personElement.onclick = function() {
-            alert(`Name:${people.name}
-                   Height:${people.height} 
-                   Gender:${people.gender}`)
+        personElement.innerHTML = `${people.name }`
+        personElement.onclick = () => {
+            infoDiv.innerHTML = ''
+            const infoPeopleName = document.createElement('h3')
+            infoPeopleName.innerText = `Name: ${people.name}`
+            infoDiv.appendChild(infoPeopleName)
+            const infoHeight = document.createElement('h3')
+            infoHeight.innerText = `Height: ${people.height}`
+            infoDiv.appendChild(infoHeight)
+            const infoGender = document.createElement('h3')
+            infoGender.innerText = `Gender: ${people.gender}`
+            infoDiv.appendChild(infoGender)
+            const infoHairColor = document.createElement('h3')
+            infoHairColor.innerText = `Hair Color: ${people.hair_color}`
+            infoDiv.appendChild(infoHairColor)
+            const infoBirthYear = document.createElement('h3')
+            infoBirthYear.innerText = `Birth Year: ${people.birth_year}`
+            infoDiv.appendChild(infoBirthYear)
         }
         personDiv.appendChild(personLi)
         personLi.appendChild(personElement)
