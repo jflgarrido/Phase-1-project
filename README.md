@@ -1,10 +1,12 @@
 Title: Star Wars Planets and People 
 
 Overview:
-A repository of Star Wars planets and people.
+This webpage is a repository of some of Star Wars planets and characters.
+It lets you navigate through two groups - planets and people. As you select a particular planet or character, more details will pop up.
 
 Features:
-* Display list of planets in the Star Wars universe (MVP)
-* Display list of people in the Star Wars Universe (MVP)
-* Click on links to show details of planets or characters (MVP)
+* Homepage display with image and website title
+* Display list of planets in the Star Wars universe
+* Display list of characters in the Star Wars Universe
+* Additional information on either planet or character when clicked
 

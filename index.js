@@ -1,7 +1,7 @@
 //Global
 const baseUrl = "https://swapi.dev/api/"
 const infoDiv = document.getElementById('info')
-infoDiv.className = 'information'
+infoDiv.className = 'container information'
 
 //Node Getters
 const mainDiv = () => document.getElementById('main');
@@ -12,9 +12,9 @@ const peopleLink = () => document.getElementById('people-link')
 //Templates
 const homePageTemplate = () => {
     return `
-    <img src="https://cdn.pixabay.com/photo/2017/09/22/15/26/figures-2775971_1280.png" alt="star wars image">
     <h1 class="center-align">Welcome to Star Wars</h1>
     <h1 class="center-align">Planets and People!</h1>
+    <img src="https://cdn.pixabay.com/photo/2017/09/22/15/26/figures-2775971_1280.png" alt="star wars image">
     `
 }
 const planetsTemplate = () => {
@@ -35,6 +35,7 @@ const peopleTemplate = () => {
 //Create Lists
 const planetList = planets => {
     const planetDiv = document.getElementById('planetEntry');
+    infoDiv.innerHTML = ''
     planets.forEach(planet => {
         const planetLi = document.createElement('li')
         const planetElement = document.createElement('button');
@@ -64,6 +65,7 @@ const planetList = planets => {
 
 const peopleList = people => {
     const personDiv = document.getElementById('personEntry');
+    infoDiv.innerHTML = ''
     people.forEach(people => {
         const personLi = document.createElement('li')
         const personElement = document.createElement('button');
@@ -95,6 +97,7 @@ const peopleList = people => {
 //Renderers
 const renderHomePage = () => {
     mainDiv().innerHTML = homePageTemplate();
+    infoDiv.innerHTML = ''
 }
 const renderPlanetsPage = () => {
     mainDiv().innerHTML = planetsTemplate();
